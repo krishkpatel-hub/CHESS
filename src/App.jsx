@@ -1,34 +1,19 @@
 import { motion } from "framer-motion";
 import { Sparkles, Swords } from "lucide-react";
-
-const boardSquares = Array.from({ length: 64 }, (_, index) => index);
+import ChessBoard from "./components/ChessBoard.jsx";
 
 function App() {
   return (
     <main className="min-h-screen overflow-hidden bg-[#07080f] text-white">
       <section className="relative flex min-h-screen items-center justify-center px-6 py-10">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,rgba(58,134,255,0.22),transparent_32%),linear-gradient(135deg,rgba(20,184,166,0.13),transparent_28%),linear-gradient(315deg,rgba(244,63,94,0.12),transparent_30%)]" />
-        <div className="absolute inset-0 opacity-[0.16]">
-          <div className="grid h-full w-full grid-cols-8">
-            {boardSquares.map((square) => (
-              <div
-                key={square}
-                className={
-                  square % 2 === Math.floor(square / 8) % 2
-                    ? "bg-white"
-                    : "bg-transparent"
-                }
-              />
-            ))}
-          </div>
-        </div>
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.055)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.055)_1px,transparent_1px)] bg-[size:48px_48px]" />
 
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="relative z-10 flex w-full max-w-5xl flex-col items-center text-center"
+          className="relative z-10 flex w-full max-w-6xl flex-col items-center text-center"
         >
           <motion.div
             initial={{ scale: 0.9, opacity: 0 }}
@@ -53,11 +38,15 @@ function App() {
             stays preserved while the next interface takes shape.
           </p>
 
+          <div className="mt-10 flex w-full justify-center">
+            <ChessBoard />
+          </div>
+
           <motion.button
             type="button"
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.98 }}
-            className="mt-10 inline-flex h-14 items-center gap-3 rounded border border-cyan-200/50 bg-cyan-300 px-7 text-base font-bold text-slate-950 shadow-[0_0_34px_rgba(34,211,238,0.34)] transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-[#07080f]"
+            className="mt-8 inline-flex h-14 items-center gap-3 rounded border border-cyan-200/50 bg-cyan-300 px-7 text-base font-bold text-slate-950 shadow-[0_0_34px_rgba(34,211,238,0.34)] transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-[#07080f]"
           >
             <Swords className="h-5 w-5" aria-hidden="true" />
             Start Game
