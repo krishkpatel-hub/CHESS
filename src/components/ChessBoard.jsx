@@ -1,7 +1,7 @@
 import { files, getSquareName } from "../game/initialBoard.js";
 import ChessSquare from "./ChessSquare.jsx";
 
-function ChessBoard({ board, legalMoves, selectedSquare, selectSquare }) {
+function ChessBoard({ board, checkedKingSquare, legalMoves, selectedSquare, selectSquare }) {
   return (
     <div className="relative flex w-full max-w-[min(86vw,620px)] flex-col items-center">
       <div className="absolute -inset-3 rounded-[1.25rem] bg-[conic-gradient(from_180deg,rgba(34,211,238,0.55),rgba(168,85,247,0.62),rgba(59,130,246,0.45),rgba(34,211,238,0.55))] opacity-80 blur-xl" />
@@ -18,6 +18,8 @@ function ChessBoard({ board, legalMoves, selectedSquare, selectSquare }) {
               const isLegalDestination = legalMoves.some(
                 (move) => move.row === rowIndex && move.col === colIndex,
               );
+              const isCheckedKing =
+                checkedKingSquare?.row === rowIndex && checkedKingSquare?.col === colIndex;
 
               return (
                 <ChessSquare
@@ -25,6 +27,7 @@ function ChessBoard({ board, legalMoves, selectedSquare, selectSquare }) {
                   file={file}
                   rank={rank}
                   isLight={isLight}
+                  isCheckedKing={isCheckedKing}
                   isLegalDestination={isLegalDestination}
                   isSelected={isSelected}
                   onSelect={() => selectSquare(rowIndex, colIndex)}

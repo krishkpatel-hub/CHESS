@@ -89,7 +89,22 @@ function isLegalKingMove(from, to) {
   return rowDelta <= 1 && colDelta <= 1;
 }
 
-export function isLegalMove(board, from, to) {
+function getOpponent(color) {
+  return color === "white" ? "black" : "white";
+}
+
+function cloneBoard(board) {
+  return board.map((row) => [...row]);
+}
+
+function applyMove(board, from, to) {
+  const nextBoard = cloneBoard(board);
+  nextBoard[to.row][to.col] = nextBoard[from.row][from.col];
+  nextBoard[from.row][from.col] = null;
+  return nextBoard;
+}
+
+function isPseudoLegalMove(board, from, to) {
   if (!from || !to) {
     return false;
   }
@@ -122,6 +137,57 @@ export function isLegalMove(board, from, to) {
   }
 }
 
+export function findKing(board, color) {
+  for (let row = 0; row < boardSize; row += 1) {
+    for (let col = 0; col < boardSize; col += 1) {
+      const piece = board[row][col];
+
+      if (piece?.name === "king" && piece.color === color) {
+        return { row, col };
+      }
+    }
+  }
+
+  return null;
+}
+
+export function isKingInCheck(board, color) {
+  const kingSquare = findKing(board, color);
+
+  if (!kingSquare) {
+    return false;
+  }
+
+  const opponent = getOpponent(color);
+
+  for (let row = 0; row < boardSize; row += 1) {
+    for (let col = 0; col < boardSize; col += 1) {
+      const piece = board[row][col];
+
+      if (piece?.color === opponent && isPseudoLegalMove(board, { row, col }, kingSquare)) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
+
+export function isLegalMove(board, from, to) {
+  if (!isPseudoLegalMove(board, from, to)) {
+    return false;
+  }
+
+  const piece = board[from.row][from.col];
+  const targetPiece = board[to.row][to.col];
+
+  if (targetPiece?.name === "king") {
+    return false;
+  }
+
+  return !isKingInCheck(applyMove(board, from, to), piece.color);
+}
+
 export function getLegalMoves(board, from) {
   if (!from || !board[from.row][from.col]) {
     return [];
@@ -140,4 +206,42 @@ export function getLegalMoves(board, from) {
   }
 
   return moves;
+}
+
+export function getAllLegalMoves(board, color) {
+  const moves = [];
+
+  for (let row = 0; row < boardSize; row += 1) {
+    for (let col = 0; col < boardSize; col += 1) {
+      const piece = board[row][col];
+
+      if (piece?.color === color) {
+        const from = { row, col };
+
+        getLegalMoves(board, from).forEach((to) => {
+          moves.push({ from, to, piece });
+        });
+      }
+    }
+  }
+
+  return moves;
+}
+
+export function getGameStatus(board, turn) {
+  const checkedKingSquare = findKing(board, turn);
+  const inCheck = isKingInCheck(board, turn);
+  const legalMoves = getAllLegalMoves(board, turn);
+  const hasLegalMoves = legalMoves.length > 0;
+  const checkmate = inCheck && !hasLegalMoves;
+  const stalemate = !inCheck && !hasLegalMoves;
+
+  return {
+    checkedKingSquare: inCheck ? checkedKingSquare : null,
+    checkmate,
+    gameOver: checkmate || stalemate,
+    inCheck,
+    stalemate,
+    winner: checkmate ? getOpponent(turn) : null,
+  };
 }

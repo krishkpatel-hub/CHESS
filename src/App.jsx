@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { Sparkles, Swords } from "lucide-react";
 import ChessBoard from "./components/ChessBoard.jsx";
+import CheckWarning from "./components/CheckWarning.jsx";
+import GameOverOverlay from "./components/GameOverOverlay.jsx";
 import GameSidebar from "./components/GameSidebar.jsx";
 import { useChessGame } from "./game/useChessGame.js";
 
@@ -37,15 +39,13 @@ function App() {
             NeoChess
           </h1>
 
-          <p className="mt-6 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">
-            A futuristic chess arena is coming online. The original Java engine
-            stays preserved while the next interface takes shape.
-          </p>
+          <CheckWarning inCheck={game.gameStatus.inCheck} turn={game.turn} />
 
           <div className="mt-10 grid w-full items-start gap-6 lg:grid-cols-[minmax(0,620px)_330px] lg:justify-center">
             <div className="flex justify-center">
               <ChessBoard
                 board={game.board}
+                checkedKingSquare={game.gameStatus.checkedKingSquare}
                 legalMoves={game.legalMoves}
                 selectedSquare={game.selectedSquare}
                 selectSquare={game.selectSquare}
@@ -70,6 +70,7 @@ function App() {
           </motion.button>
         </motion.div>
       </section>
+      <GameOverOverlay status={game.gameStatus} onReset={game.resetBoard} />
     </main>
   );
 }

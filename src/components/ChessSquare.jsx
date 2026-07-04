@@ -4,6 +4,7 @@ import ChessPiece from "./ChessPiece.jsx";
 function ChessSquare({
   file,
   rank,
+  isCheckedKing,
   isLegalDestination,
   isLight,
   isSelected,
@@ -34,6 +35,9 @@ function ChessSquare({
           ? "bg-cyan-100/16 hover:bg-cyan-100/24"
           : "bg-indigo-950/68 hover:bg-fuchsia-900/54",
         isLegalDestination ? "ring-2 ring-fuchsia-300/90" : "",
+        isCheckedKing
+          ? "ring-2 ring-red-300 shadow-[inset_0_0_38px_rgba(248,113,113,0.68),0_0_28px_rgba(248,113,113,0.42)]"
+          : "",
         isSelected ? "ring-2 ring-cyan-200 shadow-[inset_0_0_34px_rgba(34,211,238,0.5)]" : "",
       ].join(" ")}
       data-legal-move={isLegalDestination ? "true" : "false"}
@@ -44,6 +48,14 @@ function ChessSquare({
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.18),transparent_30%)] opacity-70" />
       {isLegalDestination ? (
         <div className="absolute h-4 w-4 rounded-full bg-fuchsia-200/85 shadow-[0_0_20px_rgba(217,70,239,0.9)] sm:h-5 sm:w-5" />
+      ) : null}
+      {isCheckedKing ? (
+        <motion.div
+          initial={{ opacity: 0.45, scale: 0.8 }}
+          animate={{ opacity: [0.45, 0.95, 0.45], scale: [0.82, 1.08, 0.82] }}
+          transition={{ duration: 1.1, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute inset-2 rounded-full border border-red-200/70 bg-red-400/15 shadow-[0_0_28px_rgba(248,113,113,0.75)]"
+        />
       ) : null}
       <ChessPiece piece={piece} />
     </motion.div>

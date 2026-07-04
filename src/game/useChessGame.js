@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getLegalMoves, isLegalMove } from "./chessRules.js";
+import { getGameStatus, getLegalMoves, isLegalMove } from "./chessRules.js";
 import { createInitialBoard } from "./initialBoard.js";
 import { movePiece } from "./movePiece.js";
 import { getSquareName } from "./initialBoard.js";
@@ -27,9 +27,14 @@ export function useChessGame() {
   const [moveHistory, setMoveHistory] = useState([]);
   const [selectedSquare, setSelectedSquare] = useState(null);
   const [turn, setTurn] = useState("white");
-  const legalMoves = getLegalMoves(board, selectedSquare);
+  const gameStatus = getGameStatus(board, turn);
+  const legalMoves = gameStatus.gameOver ? [] : getLegalMoves(board, selectedSquare);
 
   function selectSquare(row, col) {
+    if (gameStatus.gameOver) {
+      return;
+    }
+
     if (canSelectPiece(board, row, col, turn)) {
       setSelectedSquare({ row, col });
       return;
@@ -73,6 +78,7 @@ export function useChessGame() {
   return {
     board,
     capturedPieces,
+    gameStatus,
     legalMoves,
     moveHistory,
     resetBoard,
