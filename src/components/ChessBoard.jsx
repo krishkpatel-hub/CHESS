@@ -3,11 +3,11 @@ import ChessSquare from "./ChessSquare.jsx";
 
 function ChessBoard({ board, checkedKingSquare, legalMoves, selectedSquare, selectSquare }) {
   return (
-    <div className="relative flex w-full max-w-[min(86vw,620px)] flex-col items-center">
-      <div className="absolute -inset-3 rounded-[1.25rem] bg-[conic-gradient(from_180deg,rgba(34,211,238,0.55),rgba(168,85,247,0.62),rgba(59,130,246,0.45),rgba(34,211,238,0.55))] opacity-80 blur-xl" />
+    <div className="relative flex w-full max-w-[min(92vw,640px)] flex-col items-center">
+      <div className="absolute -inset-2 rounded-[1.1rem] bg-[#000]/35 blur-xl" />
 
-      <div className="relative w-full rounded-[1.25rem] border border-cyan-200/35 bg-white/10 p-3 shadow-[0_0_42px_rgba(34,211,238,0.24),inset_0_0_30px_rgba(255,255,255,0.05)] backdrop-blur-xl">
-        <div className="grid aspect-square grid-cols-8 overflow-hidden rounded-xl border border-white/15 bg-slate-950/70">
+      <div className="relative w-full rounded-[1.1rem] border border-[#4b473b] bg-[#1a1915] p-2 shadow-[0_24px_80px_rgba(0,0,0,0.38),inset_0_1px_0_rgba(244,239,228,0.08)] sm:p-3">
+        <div className="grid aspect-square grid-cols-8 overflow-hidden rounded-lg border border-[#2b2a25] bg-[#0f100e]">
           {board.flatMap((row, rowIndex) =>
             row.map((piece, colIndex) => {
               const rank = 8 - rowIndex;

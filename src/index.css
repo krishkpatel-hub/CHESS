@@ -5,7 +5,7 @@
   font-family:
     Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
-  background: #07080f;
+  background: #11110f;
 }
 
 * {
@@ -14,14 +14,14 @@
 
 html {
   min-width: 320px;
-  background: #07080f;
+  background: #11110f;
 }
 
 body {
   min-width: 320px;
   min-height: 100vh;
   margin: 0;
-  background: #07080f;
+  background: #11110f;
 }
 
 button {
@@ -29,24 +29,26 @@ button {
 }
 
 .piece-token {
-  --piece-primary: #e6fbff;
-  --piece-secondary: #67e8f9;
-  --piece-accent: #a78bfa;
-  --piece-deep: #0f172a;
-  --piece-glow: rgba(34, 211, 238, 0.62);
+  --piece-primary: #f6efe0;
+  --piece-secondary: #d8c58d;
+  --piece-accent: #8b7650;
+  --piece-deep: #2a2822;
+  --piece-outline: rgba(246, 239, 224, 0.34);
+  --piece-shadow: rgba(0, 0, 0, 0.42);
   position: relative;
   display: block;
   aspect-ratio: 1;
   isolation: isolate;
-  filter: drop-shadow(0 0 14px var(--piece-glow));
+  filter: drop-shadow(0 8px 8px var(--piece-shadow));
 }
 
 .piece-token.black {
-  --piece-primary: #2e1065;
-  --piece-secondary: #a855f7;
-  --piece-accent: #22d3ee;
-  --piece-deep: #020617;
-  --piece-glow: rgba(168, 85, 247, 0.68);
+  --piece-primary: #2e3330;
+  --piece-secondary: #121411;
+  --piece-accent: #9b8356;
+  --piece-deep: #060706;
+  --piece-outline: rgba(184, 168, 132, 0.28);
+  --piece-shadow: rgba(0, 0, 0, 0.62);
 }
 
 .piece-token-board {
@@ -59,13 +61,13 @@ button {
 
 .piece-token::before {
   position: absolute;
-  inset: 16% 12% 8%;
+  inset: 20% 16% 9%;
   z-index: -1;
   border-radius: 999px;
-  background: radial-gradient(circle, var(--piece-glow), transparent 68%);
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.32), transparent 68%);
   content: "";
-  opacity: 0.7;
-  filter: blur(8px);
+  opacity: 0.85;
+  filter: blur(6px);
 }
 
 .piece-core,
@@ -81,8 +83,8 @@ button {
   position: absolute;
   display: block;
   box-shadow:
-    inset 0 0 14px rgba(255, 255, 255, 0.2),
-    0 0 16px var(--piece-glow);
+    inset 0 1px 0 rgba(255, 255, 255, 0.26),
+    inset 0 -12px 18px rgba(0, 0, 0, 0.18);
 }
 
 .piece-core {
@@ -90,11 +92,11 @@ button {
   right: 29%;
   bottom: 27%;
   height: 38%;
-  border: 1px solid color-mix(in oklab, var(--piece-secondary), white 22%);
+  border: 1px solid var(--piece-outline);
   border-radius: 42% 42% 18% 18%;
   background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.42), transparent 28%),
-    linear-gradient(180deg, var(--piece-primary), var(--piece-secondary) 58%, var(--piece-deep));
+    linear-gradient(145deg, rgba(255, 255, 255, 0.28), transparent 30%),
+    linear-gradient(180deg, var(--piece-primary), var(--piece-secondary) 60%, var(--piece-deep));
 }
 
 .piece-base {
@@ -102,10 +104,10 @@ button {
   right: 19%;
   bottom: 13%;
   height: 18%;
-  border: 1px solid color-mix(in oklab, var(--piece-accent), white 22%);
+  border: 1px solid var(--piece-outline);
   border-radius: 999px 999px 28% 28%;
   background:
-    linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.32), transparent),
+    linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent),
     linear-gradient(180deg, var(--piece-secondary), var(--piece-deep));
 }
 
@@ -115,7 +117,7 @@ button {
   top: 13%;
   height: 28%;
   clip-path: polygon(0 100%, 0 44%, 18% 65%, 30% 0, 50% 58%, 70% 0, 82% 65%, 100% 44%, 100% 100%);
-  background: linear-gradient(180deg, #ffffff, var(--piece-secondary) 52%, var(--piece-accent));
+  background: linear-gradient(180deg, var(--piece-primary), var(--piece-secondary) 52%, var(--piece-accent));
 }
 
 .piece-spire {
@@ -123,7 +125,7 @@ button {
   width: 9%;
   height: 20%;
   border-radius: 999px;
-  background: linear-gradient(180deg, #ffffff, var(--piece-accent));
+  background: linear-gradient(180deg, var(--piece-primary), var(--piece-accent));
 }
 
 .piece-spire-left {
@@ -137,9 +139,9 @@ button {
 }
 
 .piece-crystal {
-  border: 1px solid rgba(255, 255, 255, 0.32);
+  border: 1px solid var(--piece-outline);
   background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.62), transparent 34%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.32), transparent 34%),
     linear-gradient(180deg, var(--piece-primary), var(--piece-accent));
 }
 
@@ -167,7 +169,7 @@ button {
   height: 62%;
   border-radius: 999px 999px 30% 30%;
   background:
-    linear-gradient(110deg, transparent 20%, rgba(255, 255, 255, 0.85) 45%, transparent 56%),
+    linear-gradient(110deg, transparent 20%, rgba(255, 255, 255, 0.42) 45%, transparent 56%),
     linear-gradient(180deg, var(--piece-primary), var(--piece-accent) 64%, var(--piece-deep));
   clip-path: polygon(64% 0, 100% 16%, 48% 100%, 0 84%);
   rotate: 18deg;
@@ -228,10 +230,10 @@ button {
   top: 16%;
   width: 40%;
   height: 40%;
-  border: 1px solid rgba(255, 255, 255, 0.36);
+  border: 1px solid var(--piece-outline);
   border-radius: 999px;
   background:
-    radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.88), transparent 22%),
+    radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.5), transparent 22%),
     radial-gradient(circle at 50% 50%, var(--piece-primary), var(--piece-secondary) 58%, var(--piece-deep));
 }
 

@@ -10,12 +10,12 @@ function CheckWarning({ inCheck, turn }) {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: -18, scale: 0.96 }}
           transition={{ duration: 0.28, ease: "easeOut" }}
-          className="relative mt-6 w-full max-w-3xl overflow-hidden rounded-xl border border-red-300/45 bg-red-500/12 px-5 py-3 text-left shadow-[0_0_34px_rgba(248,113,113,0.28)] backdrop-blur-xl"
+          className="relative mt-5 w-full max-w-3xl overflow-hidden rounded-lg border border-[#9d4d3f]/60 bg-[#261815]/92 px-5 py-3 text-left shadow-[0_16px_42px_rgba(0,0,0,0.24)] backdrop-blur-md"
         >
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent,rgba(248,113,113,0.22),transparent)]" />
-          <div className="relative flex items-center justify-center gap-3 text-red-100">
-            <AlertTriangle className="h-5 w-5 text-red-200 drop-shadow-[0_0_12px_rgba(248,113,113,0.8)]" />
-            <p className="text-sm font-black uppercase tracking-[0.24em]">
+          <div className="absolute inset-x-0 top-0 h-px bg-[#d88978]/60" />
+          <div className="relative flex items-center justify-center gap-3 text-[#f0d4c9]">
+            <AlertTriangle className="h-5 w-5 text-[#d88978]" />
+            <p className="text-sm font-semibold uppercase tracking-[0.22em]">
               {turn} king under attack
             </p>
           </div>

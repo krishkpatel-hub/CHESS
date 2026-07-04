@@ -9,8 +9,8 @@ function SidebarCard({ children, className = "" }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.45, ease: "easeOut" }}
       className={[
-        "relative overflow-hidden rounded-xl border border-white/10 bg-white/10 p-4 text-left shadow-[0_0_28px_rgba(34,211,238,0.12)] backdrop-blur-xl",
-        "before:absolute before:inset-0 before:rounded-xl before:bg-[linear-gradient(135deg,rgba(34,211,238,0.2),rgba(168,85,247,0.18),transparent_60%)] before:opacity-80",
+        "relative overflow-hidden rounded-lg border border-[#3a3932] bg-[#181815]/88 p-4 text-left shadow-[0_18px_50px_rgba(0,0,0,0.24)] backdrop-blur-md",
+        "before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-[#d8bf7a]/45",
         className,
       ].join(" ")}
     >
@@ -22,10 +22,10 @@ function SidebarCard({ children, className = "" }) {
 function CardTitle({ icon: Icon, title }) {
   return (
     <div className="mb-3 flex items-center gap-2">
-      <span className="flex h-8 w-8 items-center justify-center rounded border border-cyan-200/30 bg-cyan-300/10 text-cyan-100 shadow-[0_0_18px_rgba(34,211,238,0.28)]">
+      <span className="flex h-8 w-8 items-center justify-center rounded-md border border-[#4b473b] bg-[#222119] text-[#cdb77a]">
         <Icon className="h-4 w-4" aria-hidden="true" />
       </span>
-      <h2 className="text-sm font-bold uppercase tracking-[0.22em] text-slate-100">
+      <h2 className="text-xs font-semibold uppercase tracking-[0.22em] text-[#d7d0c2]">
         {title}
       </h2>
     </div>
@@ -38,24 +38,18 @@ function PlayerLabel({ color, isActive }) {
   return (
     <div
       className={[
-        "flex items-center justify-between rounded border px-3 py-2 transition",
+        "flex items-center justify-between rounded-md border px-3 py-2 transition",
         isActive
-          ? "border-cyan-200/70 bg-cyan-300/15 shadow-[0_0_22px_rgba(34,211,238,0.18)]"
-          : "border-white/10 bg-slate-950/35",
+          ? "border-[#bda66e]/70 bg-[#2a261b] shadow-[0_10px_26px_rgba(0,0,0,0.18)]"
+          : "border-[#34332e] bg-[#11110f]",
       ].join(" ")}
     >
       <div className="flex items-center gap-2">
-        <span
-          className={[
-            "h-3 w-3 rounded-full border",
-            isWhite ? "border-white bg-slate-50" : "border-fuchsia-200 bg-slate-950",
-          ].join(" ")}
-        />
-        <span className="text-sm font-semibold text-white">
+        <span className="text-sm font-medium text-[#efe8db]">
           {isWhite ? "White Player" : "Black Player"}
         </span>
       </div>
-      {isActive ? <Crown className="h-4 w-4 text-cyan-100" aria-hidden="true" /> : null}
+      {isActive ? <Crown className="h-4 w-4 text-[#d8bf7a]" aria-hidden="true" /> : null}
     </div>
   );
 }
@@ -63,10 +57,10 @@ function PlayerLabel({ color, isActive }) {
 function CapturedPieces({ title, pieces }) {
   return (
     <div>
-      <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+      <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#918a7b]">
         {title}
       </p>
-      <div className="min-h-11 rounded border border-white/10 bg-slate-950/35 px-3 py-2">
+      <div className="min-h-11 rounded-md border border-[#34332e] bg-[#10100e] px-3 py-2">
         {pieces.length > 0 ? (
           <div className="flex flex-wrap gap-2">
             {pieces.map((piece, index) => (
@@ -82,7 +76,7 @@ function CapturedPieces({ title, pieces }) {
             ))}
           </div>
         ) : (
-          <span className="text-sm text-slate-500">None</span>
+          <span className="text-sm text-[#6f6a5f]">None</span>
         )}
       </div>
     </div>
@@ -94,7 +88,7 @@ function GameSidebar({ capturedPieces, moveHistory, onReset, turn }) {
   const capturedBlack = capturedPieces.filter((piece) => piece.color === "black");
 
   return (
-    <aside className="grid w-full gap-4 lg:w-[330px] lg:shrink-0">
+    <aside className="grid w-full gap-4 sm:grid-cols-2 lg:w-[340px] lg:shrink-0 lg:grid-cols-1">
       <SidebarCard>
         <CardTitle icon={Swords} title="Match Control" />
         <div className="grid gap-2">
@@ -103,17 +97,17 @@ function GameSidebar({ capturedPieces, moveHistory, onReset, turn }) {
         </div>
       </SidebarCard>
 
-      <SidebarCard className="border-cyan-200/25">
+      <SidebarCard className="border-[#5a5038]">
         <CardTitle icon={Trophy} title="Current Turn" />
         <div className="flex items-end justify-between gap-3">
           <div>
-            <p className="text-4xl font-black capitalize leading-none text-white">
+            <p className="text-4xl font-semibold capitalize leading-none text-[#f4efe4]">
               {turn}
             </p>
-            <p className="mt-2 text-sm text-cyan-100/80">Awaiting command</p>
+            <p className="mt-2 text-sm text-[#918a7b]">To move</p>
           </div>
-          <div className="rounded border border-cyan-200/30 bg-cyan-300/10 p-3 shadow-[0_0_22px_rgba(34,211,238,0.25)]">
-            <Crown className="h-7 w-7 text-cyan-100" aria-hidden="true" />
+          <div className="rounded-md border border-[#5a5038] bg-[#242117] p-3">
+            <Crown className="h-7 w-7 text-[#d8bf7a]" aria-hidden="true" />
           </div>
         </div>
       </SidebarCard>
@@ -130,17 +124,17 @@ function GameSidebar({ capturedPieces, moveHistory, onReset, turn }) {
                     initial={{ opacity: 0, x: 12 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -12 }}
-                    className="flex items-center justify-between rounded border border-white/10 bg-slate-950/35 px-3 py-2 text-sm"
+                    className="flex items-center justify-between rounded-md border border-[#34332e] bg-[#10100e] px-3 py-2 text-sm"
                   >
-                    <span className="text-slate-400">{index + 1}.</span>
-                    <span className="font-semibold capitalize text-white">{move.color}</span>
-                    <span className="text-cyan-100">{move.notation}</span>
+                    <span className="text-[#777164]">{index + 1}.</span>
+                    <span className="font-medium capitalize text-[#efe8db]">{move.color}</span>
+                    <span className="text-[#cdb77a]">{move.notation}</span>
                   </motion.li>
                 ))}
               </AnimatePresence>
             </ol>
           ) : (
-            <p className="rounded border border-white/10 bg-slate-950/35 px-3 py-4 text-sm text-slate-500">
+            <p className="rounded-md border border-[#34332e] bg-[#10100e] px-3 py-4 text-sm text-[#6f6a5f]">
               No moves yet
             </p>
           )}
@@ -160,7 +154,7 @@ function GameSidebar({ capturedPieces, moveHistory, onReset, turn }) {
         onClick={onReset}
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
-        className="inline-flex h-12 items-center justify-center gap-2 rounded-xl border border-fuchsia-300/40 bg-fuchsia-300/12 px-5 text-sm font-bold text-fuchsia-100 shadow-[0_0_24px_rgba(217,70,239,0.2)] transition hover:border-cyan-200/70 hover:bg-cyan-300/15 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-[#07080f]"
+        className="inline-flex h-12 items-center justify-center gap-2 rounded-lg border border-[#5a5038] bg-[#211f18] px-5 text-sm font-semibold text-[#efe8db] shadow-[0_14px_34px_rgba(0,0,0,0.22)] transition hover:border-[#cdb77a] hover:bg-[#29251a] focus:outline-none focus:ring-2 focus:ring-[#cdb77a] focus:ring-offset-2 focus:ring-offset-[#11110f] sm:col-span-2 lg:col-span-1"
       >
         <RotateCcw className="h-4 w-4" aria-hidden="true" />
         Reset Game

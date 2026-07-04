@@ -24,37 +24,37 @@ function ChessSquare({
         }
       }}
       whileHover={{
-        scale: 1.035,
-        boxShadow: "inset 0 0 24px rgba(34, 211, 238, 0.34)",
+        scale: 1.012,
+        boxShadow: "inset 0 0 0 1px rgba(205, 183, 122, 0.35)",
       }}
       transition={{ duration: 0.18, ease: "easeOut" }}
       className={[
         "relative flex aspect-square items-center justify-center overflow-hidden",
-        "cursor-pointer border border-white/5 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-inset",
+        "cursor-pointer border border-black/10 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#cdb77a] focus:ring-inset",
         isLight
-          ? "bg-cyan-100/16 hover:bg-cyan-100/24"
-          : "bg-indigo-950/68 hover:bg-fuchsia-900/54",
-        isLegalDestination ? "ring-2 ring-fuchsia-300/90" : "",
+          ? "bg-[#b9aa86] hover:bg-[#c4b693]"
+          : "bg-[#1f3028] hover:bg-[#263b31]",
+        isLegalDestination ? "ring-2 ring-[#cdb77a]" : "",
         isCheckedKing
-          ? "ring-2 ring-red-300 shadow-[inset_0_0_38px_rgba(248,113,113,0.68),0_0_28px_rgba(248,113,113,0.42)]"
+          ? "ring-2 ring-[#c65a4a] shadow-[inset_0_0_26px_rgba(198,90,74,0.42)]"
           : "",
-        isSelected ? "ring-2 ring-cyan-200 shadow-[inset_0_0_34px_rgba(34,211,238,0.5)]" : "",
+        isSelected ? "ring-2 ring-[#efe1b2] shadow-[inset_0_0_22px_rgba(239,225,178,0.32)]" : "",
       ].join(" ")}
       data-legal-move={isLegalDestination ? "true" : "false"}
       data-square={squareName ?? `${file}${rank}`}
       aria-label={`${squareName ?? `${file}${rank}`}${piece ? ` ${piece.color} ${piece.name}` : ""}`}
       aria-pressed={isSelected}
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.18),transparent_30%)] opacity-70" />
+      <div className="absolute inset-0 bg-[linear-gradient(145deg,rgba(255,255,255,0.13),transparent_36%,rgba(0,0,0,0.12))]" />
       {isLegalDestination ? (
-        <div className="absolute h-4 w-4 rounded-full bg-fuchsia-200/85 shadow-[0_0_20px_rgba(217,70,239,0.9)] sm:h-5 sm:w-5" />
+        <div className="absolute h-3 w-3 rounded-full border border-[#f0ddb0] bg-[#cdb77a]/70 shadow-[0_2px_8px_rgba(0,0,0,0.28)] sm:h-4 sm:w-4" />
       ) : null}
       {isCheckedKing ? (
         <motion.div
           initial={{ opacity: 0.45, scale: 0.8 }}
           animate={{ opacity: [0.45, 0.95, 0.45], scale: [0.82, 1.08, 0.82] }}
           transition={{ duration: 1.1, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute inset-2 rounded-full border border-red-200/70 bg-red-400/15 shadow-[0_0_28px_rgba(248,113,113,0.75)]"
+          className="absolute inset-2 rounded-full border border-[#d88978]/80 bg-[#7c2d24]/20 shadow-[0_0_18px_rgba(198,90,74,0.38)]"
         />
       ) : null}
       <ChessPiece piece={piece} />
