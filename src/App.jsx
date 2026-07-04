@@ -1,8 +1,12 @@
 import { motion } from "framer-motion";
 import { Sparkles, Swords } from "lucide-react";
 import ChessBoard from "./components/ChessBoard.jsx";
+import GameSidebar from "./components/GameSidebar.jsx";
+import { useChessGame } from "./game/useChessGame.js";
 
 function App() {
+  const game = useChessGame();
+
   return (
     <main className="min-h-screen overflow-hidden bg-[#07080f] text-white">
       <section className="relative flex min-h-screen items-center justify-center px-6 py-10">
@@ -38,8 +42,21 @@ function App() {
             stays preserved while the next interface takes shape.
           </p>
 
-          <div className="mt-10 flex w-full justify-center">
-            <ChessBoard />
+          <div className="mt-10 grid w-full items-start gap-6 lg:grid-cols-[minmax(0,620px)_330px] lg:justify-center">
+            <div className="flex justify-center">
+              <ChessBoard
+                board={game.board}
+                legalMoves={game.legalMoves}
+                selectedSquare={game.selectedSquare}
+                selectSquare={game.selectSquare}
+              />
+            </div>
+            <GameSidebar
+              capturedPieces={game.capturedPieces}
+              moveHistory={game.moveHistory}
+              onReset={game.resetBoard}
+              turn={game.turn}
+            />
           </div>
 
           <motion.button
